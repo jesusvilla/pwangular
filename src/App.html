@@ -1,3 +1,7 @@
 <div>
+  <h1 class="md-title">Principal</h1>
   <md-button>{{$sie.saludo}}</md-button>
+  <textarea ui-tinymce="$sie.tinymceOptions" ng-model="$sie.tinymceModel"></textarea>
+  <div>{{$sie.tinymceModel}}</div>
+  <div ui-view></div>
 </div>

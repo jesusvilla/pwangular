@@ -17,10 +17,16 @@ var env = process.env.NODE_ENV === 'testing'
 
 var webpackConfig = merge(baseWebpackConfig, {
   module: {
-    rules: utils.styleLoaders({
-      sourceMap: config.build.productionSourceMap,
-      extract: true
-    })
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          //resolve-url-loader may be chained before sass-loader if necessary
+          use: ['css-loader', 'sass-loader']
+        })
+      }
+    ]
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -37,7 +43,11 @@ var webpackConfig = merge(baseWebpackConfig, {
       compress: {
         warnings: false
       },
-      sourceMap: true
+      sourceMap: true,
+      /* //Esto es para tinymce
+      output: {
+        "ascii_only": true
+      }*/
     }),
     // extract css into its own file
     new ExtractTextPlugin({

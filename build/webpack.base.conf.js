@@ -1,6 +1,7 @@
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 function resolve (dir) {
   return path.join(__dirname, '..', dir)
@@ -48,7 +49,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
+        test: /\.(woff?2|ttf|eot|otf|svg)(\?v=[a-z0-9]\.[a-z0-9]\.[a-z0-9])?$/,
         loader: 'url-loader',
         options: {
           limit: 10000,
@@ -69,17 +70,7 @@ module.exports = {
         ],
         exclude: /index.html$/,
         //loader: 'ngtemplate-loader!html-loader'
-      },
-      {
-          test: /\.scss$/,
-          use: [{
-              loader: "style-loader" // creates style nodes from JS strings
-          }, {
-              loader: "css-loader" // translates CSS into CommonJS
-          }, {
-              loader: "sass-loader" // compiles Sass to CSS
-          }]
-        }
+      }
     ]
   }
 }
