@@ -35,6 +35,8 @@ var webpackConfig = merge(baseWebpackConfig, {
     chunkFilename: utils.assetsPath('js/[id].[chunkhash].js')
   },
   plugins: [
+    // Moment
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(es|en|fr|zh-cn)$/),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env
@@ -132,7 +134,7 @@ if (config.build.productionGzip) {
         config.build.productionGzipExtensions.join('|') +
         ')$'
       ),
-      threshold: 10240,
+      threshold: 0,//Files 10KB min (10240)
       minRatio: 0.8
     })
   )
