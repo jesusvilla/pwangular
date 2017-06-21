@@ -19,6 +19,7 @@
     "angular-material": "^1.1.4",
     "angular-ui-router": "^1.0.3",
     "angular-ui-tinymce": "^0.0.18",
+    "textangular": "^1.5.16",
     "tinymce": "^4.6.4"
   },
   "devDependencies": {

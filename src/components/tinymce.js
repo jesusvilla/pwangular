@@ -121,7 +121,8 @@ console.log(window.location.origin + '/skins/lightgray')
 
 const config = {
   skin_url: window.location.origin + '/skins/lightgray',
-  plugins: ['paste', 'link']
+  plugins: ['paste', 'link'],
+  branding: false
 }
 
 export default config

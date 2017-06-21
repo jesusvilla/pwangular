@@ -4,22 +4,40 @@ import 'angular-animate'
 import 'angular-material'
 import App from './App.html'
 import './App.scss'
-import configTinymce from './components/tinymce.js'
-import 'angular-ui-tinymce'
-// import '~node_modules/angular-material/angular-material.scss'
 
-let sieweb = angular.module('sieweb', ['ngMaterial', 'ui.tinymce'])
+let dependencies = ['ngMaterial']
+const editor = 'tinymce'
+let configEditor = {
+  skin_url: window.location.origin + '/skins/lightgray',
+  plugins: ['paste', 'link'],
+  branding: false
+}
+if (editor === 'tinymce') {
+  /* import configTinymce from './components/tinymce'
+  import 'angular-ui-tinymce'
+  configEditor = configTinymce
+  dependencies.push('ui.tinymce') */
+} else {
+
+}
+
+import 'textangular/dist/textAngular-sanitize.min'
+import 'textAngular'
+
+dependencies.push('textAngular')
+
+let sieweb = angular.module('sieweb', dependencies)
+
 let $app = document.getElementById('app')
-console.log('Hola Walter', configTinymce)
 $app.innerHTML = '<sie-app></sie-app>'
-// console.log('Prueba', sieweb)
+
 sieweb.component('sieApp', {
   template: App,
   controllerAs: '$sie',
   controller () {
     let $sie = this
     $sie.saludo = 'Jaja'
-    $sie.tinymceOptions = configTinymce
+    $sie.tinymceOptions = configEditor
   }
 })
 angular.bootstrap($app, ['sieweb'])
