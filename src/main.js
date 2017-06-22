@@ -21,7 +21,7 @@ import 'textangular'
 dependencies.push('textAngular')
 */
 
-let sieweb = angular.module('sieweb', dependencies)
+const sieweb = angular.module('sieweb', dependencies)
 
 console.log('NO inject')
 // config.$inject = ['$stateProvider', '$urlServiceProvider', '$locationProvider', '$compileProvider']
@@ -45,19 +45,41 @@ function config ($stateProvider, $urlServiceProvider, $locationProvider, $compil
     name: 'intranet',
     url: '/intranet',
     // templateUrl: require('./states/intranet.index.html'),
-    templateProvider: () => {
+    /* templateProvider: () => {
       console.log('templateProvider')
       return import('./states/intranet/index.html')
-    },
-    controllerProvider: (sieController) => {
-      return sieController
-    },
+    }, */
+    templateUrl: 'intranet.html',
     resolve: {
-      sieController: () => {
-        console.log('resolve: sieController')
-        return import('./states/intranet/index.js')
+      sieState: ($q, $templateCache) => {
+        console.log('state')
+        let deferCtrl = $q.defer()
+        /* import('./states/intranet/index.js').then((ctrl) => {
+          $templateCache.put('intranet.html', require('./states/intranet/index.html'))
+          deferCtrl.resolve(ctrl.default)
+        }) */
+        require.ensure([], (r) => {
+          const template = require('./states/intranet/index.html')
+          const ctrl = require('./states/intranet')
+          $templateCache.put('intranet.html', template)
+          deferCtrl.resolve(ctrl.default)
+        })
+        return deferCtrl.promise
       }
-    }
+    },
+    controllerProvider: (sieState) => {
+      console.log('controllerProvider')
+      return sieState
+    },
+    /* controllerProvider: ($q) => {
+      console.log('controllerProvider')
+      let deferCtrl = $q.defer()
+      import('./states/intranet').then(ctrl => {
+        deferCtrl.resolve(ctrl.default)
+      })
+      return deferCtrl.promise
+    }, */
+    controllerAs: '$sie'
   })
 }
 sieweb.config(config)
