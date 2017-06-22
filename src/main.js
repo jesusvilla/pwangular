@@ -22,17 +22,41 @@ dependencies.push('textAngular')
 */
 
 let sieweb = angular.module('sieweb', dependencies)
-config.$inject = ['$stateProvider', '$urlServiceProvider', '$locationProvider']
-function config ($stateProvider, $urlServiceProvider, $locationProvider) {
-  $locationProvider.html5Mode(false).hashPrefix('sieweb')
+
+console.log('NO inject')
+// config.$inject = ['$stateProvider', '$urlServiceProvider', '$locationProvider', '$compileProvider']
+
+/* @ngInject */
+function config ($stateProvider, $urlServiceProvider, $locationProvider, $compileProvider) {
+  $locationProvider.html5Mode(false).hashPrefix('')
+  if (process.env['NODE_ENV'] === 'production') {
+    // Ver más en: https://docs.angularjs.org/guide/production
+    $compileProvider.debugInfoEnabled(false)
+    // Para habilitar info, escribir en consola: angular.reloadWithDebugInfo()
+    $compileProvider.commentDirectivesEnabled(false)
+    $compileProvider.cssClassDirectivesEnabled(false)
+  }
 
   // https://ui-router.github.io/ng1/docs/latest/interfaces/ng1.ng1statedeclaration.html#lazyload
+
+  // Mira: https://weblogs.asp.net/dwahlin/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs
+  // https://michalzalecki.com/lazy-load-angularjs-with-webpack/
   $stateProvider.state({
     name: 'intranet',
     url: '/intranet',
-    lazyload: (transition, state) => {
-      console.log(transition, state)
-      import(`./states/intranet`)
+    // templateUrl: require('./states/intranet.index.html'),
+    templateProvider: () => {
+      console.log('templateProvider')
+      return import('./states/intranet/index.html')
+    },
+    controllerProvider: (sieController) => {
+      return sieController
+    },
+    resolve: {
+      sieController: () => {
+        console.log('resolve: sieController')
+        return import('./states/intranet/index.js')
+      }
     }
   })
 }
@@ -50,5 +74,5 @@ sieweb.component('sieApp', {
     $sie.tinymceOptions = configEditor
   }
 })
-angular.bootstrap($app, ['sieweb'])
+angular.bootstrap($app, ['sieweb'], {strictDi: true})
 export default sieweb

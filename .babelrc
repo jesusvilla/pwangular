@@ -3,12 +3,12 @@
     ["env", { "modules": false }],
     "stage-2"
   ],
-  "plugins": ["transform-runtime"],
+  "plugins": ["transform-runtime", "syntax-dynamic-import", ["angularjs-annotate", { "explicitOnly" : false}]],
   "comments": false,
   "env": {
     "test": {
       "presets": ["env", "stage-2"],
-      "plugins": [ "istanbul", "syntax-dynamic-import"]
+      "plugins": [ "istanbul"]
     }
   }
 }

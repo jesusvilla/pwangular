@@ -68,9 +68,19 @@ module.exports = {
             }
           }
         ],
-        exclude: /index.html$/,
+        include: resolve('src'),
         //loader: 'ngtemplate-loader!html-loader'
-      }
+      },
+      /*{
+        test: /\.html$/,
+        use: ['ngtemplate-loader','html-loader'],
+        include: resolve('src/states')
+      },
+      {
+        test: /\.js$/,
+        enforce: 'pre',
+        use: 'baggage-loader?[file].html'
+      }*/
     ]
   }
 }
