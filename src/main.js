@@ -13,19 +13,13 @@ import configEditor from './components/tinymce'
 import 'angular-ui-tinymce'
 dependencies.push('ui.tinymce')
 
-import('moment').then((moment) => {
-  console.log('mira Moment', moment)
-})
-/*
-import 'textangular/dist/textAngular-rangy.min'
-import 'textangular/dist/textAngular-sanitize.min'
-import 'textangular'
-dependencies.push('textAngular')
-*/
+import 'moment'
 
 const sieweb = angular.module('sieweb', dependencies)
 
-console.log('NO inject')
+import statesJSON from './states.json'
+
+console.log(statesJSON)
 // config.$inject = ['$stateProvider', '$urlServiceProvider', '$locationProvider', '$compileProvider']
 
 /* @ngInject */

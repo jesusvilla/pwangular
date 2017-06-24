@@ -20,8 +20,16 @@ export default function state (name) {
         require.ensure([], (r) => {
           const template = require('./states/intranet/index.html')
           const ctrl = require('./states/intranet')
-          $templateCache.put('intranet.html', template)
-          deferCtrl.resolve(ctrl.default)
+          // $q.when(object or Promise) es equivalente a Promise.resolve(object or Promise)
+          Promise.resolve(ctrl.default).then(resCtrl => {
+            console.log('resCtrl', resCtrl)
+            $templateCache.put('intranet.html', template)
+            deferCtrl.resolve(resCtrl.default)
+          })
+          /* ctrl.then((resCtrl) => {
+            $templateCache.put('intranet.html', template)
+            deferCtrl.resolve(resCtrl.default)
+          }) */
         })
         return deferCtrl.promise
       }
