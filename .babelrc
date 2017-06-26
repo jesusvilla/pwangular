@@ -3,7 +3,14 @@
     ["env", { "modules": false }],
     "stage-2"
   ],
-  "plugins": ["transform-runtime", "syntax-dynamic-import", ["angularjs-annotate", { "explicitOnly" : false}]],
+  "plugins": [
+    "syntax-async-functions",
+    "syntax-dynamic-import",
+    "transform-async-to-generator",
+    "transform-regenerator",
+    "transform-runtime",
+    ["angularjs-annotate", { "explicitOnly" : false}]
+  ],
   "comments": false,
   "env": {
     "test": {

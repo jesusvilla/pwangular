@@ -5,13 +5,10 @@ function getFiles (dir, states = [], parent) {
     var name = dir + '/' + files[i]
     if (fs.statSync(name).isDirectory()) {
       var nameCurrent = files[i]
-      var parentCurrent = ''
       if(parent){
-        parentCurrent = parent + '.'
+        nameCurrent = parent + '.' + nameCurrent
       }
-      states.push({
-        name: parentCurrent + nameCurrent
-      })
+      states.push(nameCurrent)
       getFiles(name, states, nameCurrent)
     } else {
       //files_.push(name)

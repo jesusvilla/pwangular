@@ -18,8 +18,6 @@ import 'moment'
 const sieweb = angular.module('sieweb', dependencies)
 
 import statesJSON from './states.json'
-
-console.log(statesJSON)
 // config.$inject = ['$stateProvider', '$urlServiceProvider', '$locationProvider', '$compileProvider']
 
 /* @ngInject */
@@ -32,8 +30,9 @@ function config ($stateProvider, $urlServiceProvider, $locationProvider, $compil
     $compileProvider.commentDirectivesEnabled(false)
     $compileProvider.cssClassDirectivesEnabled(false)
   }
-
-  $stateProvider.state(loadState('intranet'))
+  statesJSON.json.forEach(state => {
+    $stateProvider.state(loadState(state))
+  })
 }
 sieweb.config(config)
 
