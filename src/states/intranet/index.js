@@ -1,8 +1,3 @@
-/* @ngInject */
-export default function app ($timeout) {
-  const $sie = this
-  $sie.intranet = 'Nueva Intranet'
-  $timeout(() => {
-    $sie.intranet = 'cAMBIO LA INTRANET'
-  }, 2000)
-}
+import template from './template.html'
+import ctrl from './controller.js'
+export default {template, ctrl}

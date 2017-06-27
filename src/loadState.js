@@ -24,32 +24,19 @@ export default function state (nameState) {
       return sieState
     },
     resolve: {
-      sieState ($q, $templateCache) {
-        let deferCtrl = $q.defer()
-        const $root = `./states${url}`
-        require.ensure([], require => {
-          const template = require(`${$root}/index.html`)// import
-          const ctrl = require(`${$root}/index.js`)// import
-          // $q.when(object or Promise) es equivalente a Promise.resolve(object or Promise)
-          /* Promise.resolve(ctrl.default).then(resCtrl => {
-            console.log('tipo', resCtrl)
-            $templateCache.put(templateUrl, template || '')
-            deferCtrl.resolve(resCtrl)
-          }) */
-
-          Promise.all([template, ctrl]).then(function ([template, ctrl]) {
-            $templateCache.put(templateUrl, template || '')
-            deferCtrl.resolve(ctrl.default)
+      sieState ($templateCache) {
+        return new Promise(resolve => {
+          import(`./states${url}/index.js`).then(res => {
+            const {template, ctrl} = res.default
+            $templateCache.put(templateUrl, template)
+            resolve(ctrl)
           })
-
-          /* ctrl.then((resCtrl) => {
-            $templateCache.put('intranet.html', template)
-            deferCtrl.resolve(resCtrl.default)
-          }) */
-        }, e => {
-          console.error('Estado incompleto:', e)
-        }, 'estados')
-        return deferCtrl.promise
+        })
+      },
+      $parent () {
+        console.log('this', this)
+        return this
+        // return $scope.$parent.$sie
       }
     },
     controllerAs: '$sie'

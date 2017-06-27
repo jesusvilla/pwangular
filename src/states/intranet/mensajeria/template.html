@@ -1,0 +1,5 @@
+<p>Jaja</p>
+<md-button class="md-accent md-raised" ng-click="$sie.generarArreglo()">Cambiar arreglo</md-button>
+<ul>
+  <li immutable="$sie.data" ng-repeat="item in $sie.data track by item.id">{{item.value}}  {{item.id}}</li>
+</ul>

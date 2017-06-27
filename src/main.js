@@ -3,7 +3,6 @@ import 'angular-aria'
 import 'angular-animate'
 import 'angular-material'
 
-import loadState from './loadState.js'
 import App from './App.html'
 import './App.scss'
 import 'angular-ui-router'
@@ -14,26 +13,13 @@ import 'angular-ui-tinymce'
 dependencies.push('ui.tinymce')
 
 import 'moment'
+import 'immutable'
+import 'angular-immutable'
+dependencies.push('immutable')
 
 const sieweb = angular.module('sieweb', dependencies)
 
-import statesJSON from './states.json'
-// config.$inject = ['$stateProvider', '$urlServiceProvider', '$locationProvider', '$compileProvider']
-
-/* @ngInject */
-function config ($stateProvider, $urlServiceProvider, $locationProvider, $compileProvider) {
-  $locationProvider.html5Mode(false).hashPrefix('')
-  if (process.env['NODE_ENV'] === 'production') {
-    // Ver más en: https://docs.angularjs.org/guide/production
-    $compileProvider.debugInfoEnabled(false)
-    // Para habilitar info, escribir en consola: angular.reloadWithDebugInfo()
-    $compileProvider.commentDirectivesEnabled(false)
-    $compileProvider.cssClassDirectivesEnabled(false)
-  }
-  statesJSON.json.forEach(state => {
-    $stateProvider.state(loadState(state))
-  })
-}
+import config from './config.js'
 sieweb.config(config)
 
 let $app = document.getElementById('app')
