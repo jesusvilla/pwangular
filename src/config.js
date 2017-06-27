@@ -6,10 +6,12 @@ export default function config (
   $urlServiceProvider,
   $locationProvider,
   $compileProvider,
-  $mdThemingProvider
+  $mdThemingProvider,
+  $animateProvider
 ) {
   $locationProvider.html5Mode(false).hashPrefix('')
   $mdThemingProvider.disableTheming()
+  $animateProvider.classNameFilter(/angular-animate/)
   if (process.env['NODE_ENV'] === 'production') {
     // Ver más en: https://docs.angularjs.org/guide/production
     $compileProvider.debugInfoEnabled(false)
