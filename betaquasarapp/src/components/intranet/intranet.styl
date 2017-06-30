@@ -1,0 +1,31 @@
+@import '~variables';
+
+
+.md-principal{
+  &.q-scrollarea{
+    background-color: darken($primary, 20%);
+  }
+
+  .q-list{
+    padding: 0;
+    .q-list-header{
+      padding: 0;
+      box-shadow: $shadow-2;
+    }
+
+    .q-item{
+      .q-item-section, .q-item-main{
+        color: #ffffff;
+      }
+
+      &:hover{
+        background-color: darken($primary, 40%);
+      }
+    }
+    .q-carousel{
+      .q-carousel-track > div{
+        min-height: 135px;
+      }
+    }
+  }
+}

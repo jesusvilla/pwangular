@@ -1,0 +1,77 @@
+<q-layout
+ref="layout"
+:view="view"
+:left-breakpoint="leftBreakpoint"
+:right-breakpoint="rightBreakpoint"
+:reveal="reveal"
+>
+  <q-toolbar slot="header" inverted>
+    <q-btn flat @click="$refs.layout.toggleLeft()">
+        <q-icon name="menu" />
+    </q-btn>
+
+    <q-toolbar-title>
+      {{saludo}}
+    </q-toolbar-title>
+
+    <q-select
+      v-model="ano"
+      :options="arrAnos"
+      label="ANO"
+      :disable="disable"
+    />
+  </q-toolbar>
+
+  <!-- Navigation Tabs
+  <q-tabs slot="navigation">
+    <q-route-tab slot="title" icon="view_quilt" to="/layout/about" replace hide="icon" label="About" />
+    <q-route-tab slot="title" icon="view_day" to="/layout/toolbar" replace hide="icon" label="Toolbar" />
+    <q-route-tab slot="title" icon="view_day" to="/layout/tabs" replace label="Tabs" />
+    <q-route-tab slot="title" icon="input" to="/layout/drawer" replace label="Drawer" />
+  </q-tabs>
+  -->
+
+  <!-- Left Side Panel -->
+  <q-scroll-area slot="left" style="width: 100%; height: 100%" class="md-principal">
+    <q-list no-border link>
+      <q-list-header>
+        <q-carousel autoplay infinite class="text-white">
+          <div slot="slide" class="bg-primary centered">
+            Escudo 1
+          </div>
+        </q-carousel>
+      </q-list-header>
+      <q-item exact>
+        <q-item-side icon="school"/>
+        <q-item-main label="Docs"/>
+      </q-item>
+      <q-item>
+        <q-item-side icon="record_voice_over" />
+        <q-item-main label="Forum" />
+      </q-item>
+      <q-item>
+        <q-item-side icon="chat" />
+        <q-item-main label="Gitter Channel" />
+      </q-item>
+      <q-item>
+        <q-item-side icon="rss feed" />
+        <q-item-main label="Twitter" />
+      </q-item>
+    </q-list>
+  </q-scroll-area>
+
+  <router-view />
+
+  <!-- Right Side Panel
+  <div slot="right">
+    ...
+  </div>
+  -->
+
+
+  <!-- Footer
+  <q-toolbar slot="footer">
+    ...
+  </q-toolbar>
+  -->
+</q-layout>
