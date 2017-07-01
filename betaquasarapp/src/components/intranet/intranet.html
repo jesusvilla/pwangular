@@ -1,4 +1,5 @@
-<q-layout
+<div>
+  <q-layout
 ref="layout"
 :view="view"
 :left-breakpoint="leftBreakpoint"
@@ -18,7 +19,6 @@ ref="layout"
       v-model="ano"
       :options="arrAnos"
       label="ANO"
-      :disable="disable"
     />
   </q-toolbar>
 
@@ -60,6 +60,8 @@ ref="layout"
     </q-list>
   </q-scroll-area>
 
+  <div>${'Uno'}</div>
+
   <router-view />
 
   <!-- Right Side Panel
@@ -75,3 +77,4 @@ ref="layout"
   </q-toolbar>
   -->
 </q-layout>
+</div>

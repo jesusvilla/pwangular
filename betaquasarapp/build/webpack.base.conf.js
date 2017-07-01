@@ -57,7 +57,7 @@ module.exports = {
         options: {
           postcss: cssUtils.postcss,
           loaders: merge({
-            js: 'babel-loader',
+            js: 'babel-loader'
             //styl: 'style-loader!css-loader!stylus-loader'
           }, cssUtils.styleLoaders({
             sourceMap: useCssSourceMap,
@@ -87,7 +87,7 @@ module.exports = {
       },
       {
         test: /\.html$/,
-        loader: 'html-loader',
+        loader: 'vue-html-loader',
         options: {
           minimize: true
         }
@@ -122,5 +122,10 @@ module.exports = {
   ],
   performance: {
     hints: false
-  }
+  },
+  /*htmlLoader: {
+    ignoreCustomFragments: [/\{\{.*?}}/],
+    root: resolve('../src/components'),
+    attrs: ['img:src', 'link:href']
+  }*/
 }

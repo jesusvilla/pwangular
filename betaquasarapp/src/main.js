@@ -26,6 +26,8 @@ import 'quasar-extras/material-icons'
 // import 'quasar-extras/fontawesome'
 // import 'quasar-extras/animate'
 
+import './App.styl'
+
 import 'vue2-editor'
 import 'vue-resource'
 

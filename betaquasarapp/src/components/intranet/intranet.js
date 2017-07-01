@@ -19,6 +19,10 @@ import { VueEditor } from 'vue2-editor'
 const apiAno = {
   obtAnos: {method: 'GET', url: 'HyoAnos/obtAnos{?id,otro}'}
 }
+const apiEscudo = {
+  obtEscudo: {method: 'GET', url: 'HyoEscudo/obtEscudo{?tipo}'}
+}
+
 export default {
   components: {
     VueEditor,
@@ -49,8 +53,7 @@ export default {
       hideTabs: false,
       menu: [],
       ano: null,
-      jsonAnos: [],
-      disable: true
+      jsonAnos: []
     }
   },
   computed: {
@@ -67,9 +70,13 @@ export default {
     },
     getAnos () {
       const Ano = this.$resource('', {}, apiAno)
+      const Escudo = this.$resource('', {}, apiEscudo)
       Ano.obtAnos({id: 'ide', otro: 'Mira'}).then(res => {
         this.jsonAnos = res.data.json
         this.ano = '2015'
+      })
+      Escudo.obtEscudo().then(res => {
+        console.log(res.data)
       })
     }
   },

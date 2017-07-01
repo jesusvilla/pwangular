@@ -19,7 +19,11 @@ module.exports = merge(baseWebpackConfig, {
     })
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
+  output: {
+    filename: 'js/[name].[chunkhash].js'
+  },
   plugins: [
+    new webpack.ContextReplacementPlugin(/moment[\\\/]locale$/, /^\.\/(es|en|fr|zh-cn)$/),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: config.build.productionSourceMap,
       minimize: true,
