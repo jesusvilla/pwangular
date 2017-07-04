@@ -7,10 +7,11 @@ export default function config (
   $locationProvider,
   $compileProvider,
   $mdThemingProvider,
-  $animateProvider
+  $animateProvider,
+  $translateProvider
 ) {
   $locationProvider.html5Mode(false).hashPrefix('')
-  $mdThemingProvider.disableTheming()
+  // $mdThemingProvider.disableTheming()
   $animateProvider.classNameFilter(/angular-animate/)
   if (process.env['NODE_ENV'] === 'production') {
     // Ver más en: https://docs.angularjs.org/guide/production
@@ -20,6 +21,8 @@ export default function config (
     $compileProvider.cssClassDirectivesEnabled(false)
   }
   statesJSON.json.forEach(state => {
+    console.log(loadState(state))
     $stateProvider.state(loadState(state))
   })
+  $translateProvider.useSanitizeValueStrategy('escape')
 }

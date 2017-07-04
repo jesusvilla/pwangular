@@ -1,7 +1,282 @@
-<div>
-  <p>{{$sie.intranet}}</p>
-  <div>
-    <md-button ui-sref="intranet.mensajeria">Prueba Intranet</md-button>
-    <div ui-view></div>
-  </div>
+<md-sidenav class="md-sidenav-left md-whiteframe-z2 sieMenu flex" md-component-id="left" md-is-locked-open="$mdMedia('gt-sm')" ng-class="{'abierto': isMenu}">
+
+    <md-toolbar class="md-whiteframe-2dp">
+        <div class="md-toolbar-tools layout-row layout-wrap layout-align-center-center">
+            <img ng-src="{{$root.colegioInfo.img}}" class="animated" ng-class="{'fadeInLeft': $root.colegioInfo.cambio, 'fadeOutRight': !$root.colegioInfo.cambio}">
+            <md-button class="md-icon-button" ng-click="onClickMenu()" aria-label="Ocultar" hide-gt-sm style="position: absolute; top: 10px; right: 20px">
+                <md-icon>arrow_back</md-icon>
+            </md-button>
+        </div>
+        <div class="sieMenu-nombre">
+            <div class="layout-column layout-align-center-center" style="height:54px">
+                <h1 class="text-center md-subhead animated" ng-class="{'fadeIn': $root.colegioInfo.cambio}" style="font-size:16px;line-height:16px;">{{$root.colegioInfo.nombre}}</h1>
+            </div>
+        </div>
+    </md-toolbar>
+
+    <md-content md-scroll-y m flex role="navigation">
+        <form id="sieweb-menu" method="post" target="_blank" action="">
+            <input type="hidden" name="sie-token">
+            <input type="hidden" name="url">
+            <ul class="md-lista" style="min-width: 200px">
+                <li ng-repeat="item in ::menu.sections" class="no-border" ng-class="{'bg-accent': item.validate()}">
+                    <a class="c-white hover-dark" ng-href="{{item.state}}" ng-click="item.toggle()" ng-class="{'sie-ripple': item.pages}">
+                        <div class="layout-row layout-wrap layout-align-start-center" style="min-height: 40px">
+                            <i class="sieicons m-l-20" style="width: 30px">{{item.icon}}</i>
+                            <span class="flex m-l-10" style="line-height: 14px">{{item.name}}</span>
+                            <i class="sieicons" ng-if="item.pages" style="width: 30px">{{(item.abierto)?"chevron_up":"chevron_down"}}</i>
+                        </div>
+                    </a>
+                    <div ng-if="item.pages && item.abierto">
+                        <ul class="md-lista menu-toggle-list">
+                            <li class="no-border" ng-repeat="subitem in ::item.pages" ng-class="{'bg-accent': subitem.validate()}">
+                                <a class="c-white hover-dark p-l-40" ng-href="{{subitem.state}}" ng-click="subitem.toggle()">
+                                    <div class="layout-row layout-wrap layout-align-start-center" style="min-height: 40px">
+                                        <i class="sieicons m-l-20" style="width: 30px">{{subitem.icon}}</i>
+                                        <span class="flex m-l-10" style="line-height: 14px">{{subitem.name}}</span>
+                                        <i class="sieicons" ng-if="subitem.pages" style="width: 30px">{{(subitem.abierto)?"chevron_up":"chevron_down"}}</i>
+                                    </div>
+                                </a>
+                                <div ng-if="subitem.pages && !subitem.abierto">
+                                    <ul class="md-lista menu-toggle-list">
+                                        <li class="no-border" ng-repeat="subsubitem in ::subitem.pages" ng-class="{'bg-accent': subsubitem.validate()}">
+                                            <a class="c-white hover-dark p-l-60" ng-href="{{subsubitem.state}}" ng-click="subsubitem.toggle()">
+                                                <div class="layout-row layout-wrap layout-align-start-center" style="min-height: 40px">
+                                                    <i class="sieicons m-l-20" style="width: 30px">{{subsubitem.icon}}</i>
+                                                    <span class="flex m-l-10" style="line-height: 14px">{{subsubitem.name}}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+            </ul>
+        </form>
+    </md-content>
+</md-sidenav>
+
+<div layout="column" tabIndex="-1" role="main" class="contenidoPrincipal" id="principal">
+    <div style="z-index: 54; position: relative">
+        <md-toolbar>
+            <div class="md-toolbar-tools md-whiteframe-1dp sieNavBar p-l-0 layout-row layout-wrap">
+                <md-button class="boton-barra-toolbar" aria-label="Menu Button" hide-gt-sm ng-click="onClickMenu()">
+                    <md-icon aria-label="Menu Icon">menu</md-icon>
+                </md-button>
+                <md-button class="boton-barra-toolbar" ng-click="isMenu = !isMenu" aria-label="Ocultar" hide show-gt-sm>
+                    <md-icon ng-class="{'md-rotate': isMenu}">arrow_forward</md-icon>
+                </md-button>
+                <md-button class="boton-barra-toolbar" style="background-color:{{menu.COLOR}};color:{{menu.TEXTCOLOR}};"
+                           aria-label="menu" ng-repeat="menu in listaMenus track by $index" ng-click="sie.irEstado(menu)">
+                    <div class="layout-column flex">
+                        <div class="layout-column flex">
+                            <span style="font-size:1.54em;" class="sieicons">{{menu.ICONO||'link'}}</span>
+                        </div>
+                        <div class="layout-column flex">
+                            <div style="line-height: 11px;font-size:11px; padding-top: 5px; white-space: normal;">{{menu.TITULO}}</div>
+                        </div>
+                    </div>
+                </md-button>
+                <md-menu style="height: 100%" ng-if="sie.listaModulos.length > 0">
+                    <md-button class="boton-barra-toolbar" aria-label="Lista de menus del sistema" ng-click="sie.mostrarMenu($mdOpenMenu, $event)">
+                        <md-icon>more_horiz</md-icon>
+                    </md-button>
+                    <md-menu-content width="4" style="overflow-x: hidden; width: 315px; max-height: 420px">
+                        <div ng-if="sie.esAdministrador">
+                            <div class="layout-row layout-align-space-between-center">
+                                <div class="text-bold m-15 c-grey">{{"accesodirecto.boton"|translate}}</div>
+                                <md-button ng-click="sie.abrirModalAccesosDirectos()" class="md-icon-button" aria-label="agregar">
+                                    <md-icon>add</md-icon>
+                                </md-button>
+                            </div>
+                            <md-divider></md-divider>
+                        </div>
+                        <div ng-if="menusAdicionales.length > 0" class="layout-row layout-wrap menusAdicionales p-t-8 ">
+                            <md-button  ng-repeat="menu in menusAdicionales"
+                                        class="flex-33 boton-menu"
+                                        style="background-color:{{menu.COLOR}};color:{{menu.TEXTCOLOR}};"
+                                        ng-click="sie.irEstado(menu)">
+                                <div class="layout-column flex">
+                                    <div class="layout-column flex">
+                                        <span style="font-size:1.54em;" class="sieicons">{{menu.ICONO||'link'}}</span>
+                                    </div>
+                                    <div class="layout-column flex">
+                                        <div style="line-height: 11px;font-size:11px; padding-top: 5px; white-space: normal;">{{menu.TITULO}}</div>
+                                    </div>
+                                </div>
+                            </md-button>
+                        </div>
+                        <md-divider ng-if="menusAdicionales.length > 0" class="m-t-8"></md-divider>
+                        <div class="text-bold m-15 c-grey">{{"modulos"|translate}}</div>
+                        <div layout="row" style="width:304px" layout-wrap>
+                            <div style="width: 100px;" ng-repeat="modulo in sie.listaModulos track by $index">
+                                <form id="{{'Formulario' + modulo.SISCOD}}" method="post" action="{{modulo.url}}" target="SieVentana">
+                                    <input type="hidden" name="sie-token" ng-value="$root.token" />
+                                    <md-button ng-click="sie.abrirModuloSieWeb(modulo)" style="width: 80px;height: 80px" class="layout-column layout-align-center-center">
+                                        <div style="
+                                             width: 25px;
+                                             height: 25px;
+                                             border-radius: 50%; margin:auto auto" ng-style="{background: modulo.COLOR}">
+                                        </div>
+                                        <div style="white-space: normal; line-height: 20px" class="c-grey p-t-5">
+                                            {{modulo.SISNOM}}
+                                        </div>
+                                    </md-button>
+                                </form>
+                            </div>
+                        </div>
+                    </md-menu-content>
+                </md-menu>
+                <md-divider style="height: 100%"></md-divider>
+
+                <span class="flex"></span>
+                <div hide show-gt-sm class="layout-wrap layout-row layout-align-center-center">
+                    <md-input-container>
+                        <md-select ng-model="sie.anio" placeholder="Año" ng-change="sie.cambiarAnio(sie.anio)" class="selecttoolbar">
+                            <md-option ng-repeat="valor in sie.anios" value="{{valor.ANO}}">
+                                {{valor.ANO}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <md-select ng-model="$root.idioma" placeholder="Idioma" ng-change="$root.cambiarIdioma($root.idioma)" class="selecttoolbar">
+                            <md-option ng-repeat="(key, idioma) in $root.idiomas" value="{{key}}">
+                                {{idioma| translate}} ({{key| uppercase}})
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-menu md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                        <sie-usuario usucod="sie.infoUsuario.usucod" width="40" height="40" ng-click="sie.mostrarMenu($mdOpenMenu, $event)" class="p-l-5"></sie-usuario>
+                        <md-menu-content width="4" class="sieMenu-avatar">
+                            <div class="md-toolbar-tools layout-row layout-wrap layout-align-center-center bg-accent" sietema>
+                                <sie-usuario usucod="sie.infoUsuario.usucod" clase="sie-usuario-avatar img-border" style="z-index: 1"></sie-usuario>
+                                <div class="sieMenu-nombre p-r-0 p-l-0">
+                                    <h1 class="titulo">{{sie.infoUsuario.nombre}}</h1>
+                                    <h1 class="subtitulo">{{sie.infoUsuario.tipnom}}</h1>
+                                </div>
+                            </div>
+                          <md-menu-item ng-if="sie.isHouse" style="height:  65px" class="layout-row layout-align-space-arround-center md-white p-t-8 p-b-8 b-b-gray-light">
+                              <img  ng-src="{{sie.dataHouse.img}}" style="width: 44px;height: 55px;
+                                    padding-left: 12px; padding-right: 12px" class="md-white">
+                              <div class="md-white flex">
+                                <span >{{sie.dataHouse.nombre}}</span>
+                              </div>
+                          </md-menu-item>
+
+                            <md-menu-item ng-if="sie.existePerfil()">
+                                <md-button ng-click="sie.verPerfil()">
+                                    <div class="layout-row flex">
+                                        <p class="flex">{{"navbar.perfil"|translate}}</p>
+                                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">person</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sie.existeContrasena">
+                                <md-button ng-click="sie.cambiarContrasena()">
+                                    <div class="layout-row flex">
+                                        <p class="flex">{{"navbar.cambiarpass"|translate}}</p>
+                                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">vpn_key</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item ng-if="sie.existeAlerta">
+                                <md-button ng-click='sie.configurarAlertas()'>
+                                    <div class="layout-row flex">
+                                        <p class="flex">{{"seguridad.alertas"|translate}}</p>
+                                        <md-icon md-menu-align-target style="margin:auto 3px auto 0">add_alert</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="sie.salir()">
+                                    <div class="layout-row flex">
+                                        <p class="flex">{{"navbar.salir"|translate}}</p>
+                                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">power_settings_new</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-fab-toolbar md-open="demo.isOpen" count="demo.count" md-direction="left" hide-gt-sm class="fabtoolbarOculto">
+            <md-fab-trigger class="align-with-text">
+                <md-button aria-label="menu" class="md-fab md-mini">
+                    <md-icon>more_horiz</md-icon>
+                </md-button>
+            </md-fab-trigger>
+            <md-toolbar>
+                <md-fab-actions class="md-toolbar-tools layout-wrap layout-row layout-align-end-center no-reverse">
+                    <md-input-container>
+                        <md-select ng-model="anio" placeholder="Año" ng-change="sie.cambiarAnio(anio)">
+                            <md-option ng-repeat="valor in sie.anios" value="{{valor.ANO}}">
+                                {{valor.ANO}}
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-input-container>
+                        <md-select ng-model="$root.idioma" placeholder="Idioma" ng-change="$root.cambiarIdioma($root.idioma)">
+                            <md-option ng-repeat="(key, idioma) in $root.idiomas" value="{{key}}">
+                                {{idioma| translate}} ({{key| uppercase}})
+                            </md-option>
+                        </md-select>
+                    </md-input-container>
+                    <md-menu md-position-mode="target-right target" md-prevent-menu-close="md-prevent-menu-close">
+                        <sie-usuario usucod="sie.infoUsuario.usucod" width="40" height="40" ng-click="sie.mostrarMenu($mdOpenMenu, $event)"></sie-usuario>
+                        <md-menu-content width="4" class="sieMenu-avatar">
+                            <div class="md-toolbar-tools layout-row layout-wrap layout-align-center-center bg-accent" sietema>
+                                <sie-usuario usucod="sie.infoUsuario.usucod" clase="sie-usuario-avatar img-border" style="z-index: 1"></sie-usuario>
+                                <div class="sieMenu-nombre p-r-0 p-l-0">
+                                    <h1 class="titulo">{{sie.infoUsuario.nombre}}</h1>
+                                    <h1 class="subtitulo">{{sie.infoUsuario.tipnom}}</h1>
+                                </div>
+                            </div>
+                           <md-menu-item ng-if="sie.isHouse" style="height:  65px" class="layout-row layout-align-space-arround-center md-white p-t-8 p-b-8 b-b-gray-light">
+                              <img  ng-src="{{sie.dataHouse.img}}" style="width: 44px;height: 55px;
+                                    padding-left: 12px; padding-right: 12px" class="md-white">
+                              <div class="md-white flex">
+                                <span >{{sie.dataHouse.nombre}}</span>
+                              </div>
+                          </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="sie.verPerfil()">
+                                    <div class="layout-row flex">
+                                        <p class="flex">{{"navbar.perfil"|translate}}</p>
+                                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">info</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="sie.cambiarContrasena()">
+                                    <div class="layout-row flex">
+                                        <p class="flex">Cambiar contraseña</p>
+                                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">vpn_key</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                            <md-menu-item>
+                                <md-button ng-click="sie.salir()">
+                                    <div class="layout-row flex">
+                                        <p class="flex">{{"navbar.salir"|translate}}</p>
+                                        <md-icon md-menu-align-target style="margin: auto 3px auto 0;">power_settings_new</md-icon>
+                                    </div>
+                                </md-button>
+                            </md-menu-item>
+                        </md-menu-content>
+                    </md-menu>
+                </md-fab-actions>
+            </md-toolbar>
+        </md-fab-toolbar>
+        <md-progress-linear style="position: absolute; bottom: 0; z-index: 99" class="md-accent" md-mode="indeterminate" ng-disabled="!$root.isAjax"></md-progress-linear>
+    </div>
+    <md-content md-scroll-y layout="column" flex class="principal md-gray-light" id="intranet">
+        <div siebreadcrumb sietema class="bg-primary"></div>
+        <div ui-view flex="noshrink" layout="column"></div>
+        <div class="siefooter" layout layout-wrap>
+            <span>© H&O System SAC</span>
+        </div>
+    </md-content>
 </div>

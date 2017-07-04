@@ -1,8 +1,4 @@
-import 'angular'
-import 'angular-aria'
-import 'angular-animate'
-import 'angular-material'
-/* import angular from 'angular'
+import angular from 'angular'
 import 'angular-aria'
 import 'angular-animate'
 import 'angular-material'
@@ -12,14 +8,17 @@ import './App.scss'
 import 'angular-ui-router'
 let dependencies = ['ngMaterial', 'ui.router']
 
-//import configEditor from './components/tinymce'
-//import 'angular-ui-tinymce'
-//dependencies.push('ui.tinymce')
+// import configEditor from './components/tinymce'
+// import 'angular-ui-tinymce'
+// dependencies.push('ui.tinymce')
 
-//import 'moment'
-//import 'immutable'
-//import 'angular-immutable'
-//dependencies.push('immutable')
+import 'moment'
+import 'immutable'
+import 'angular-immutable'
+dependencies.push('immutable')
+
+import 'angular-translate'
+dependencies.push('pascalprecht.translate')
 
 const sieweb = angular.module('sieweb', dependencies)
 
@@ -39,4 +38,4 @@ sieweb.component('sieApp', {
   }
 })
 angular.bootstrap($app, ['sieweb'], {strictDi: true})
-export default sieweb */
+export default sieweb

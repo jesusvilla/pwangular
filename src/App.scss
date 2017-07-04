@@ -1,4 +1,9 @@
 @import '~angular-material/angular-material.scss';
 //https://github.com/johannesjo/angular-material-sass-files/blob/master/themes/_button-theme.scss
-@import "./themes/variables.scss";
-@import "./themes/index.scss";
+//@import "./themes/variables.scss";
+//@import "./themes/index.scss";
+
+sie-app > div > div[ui-view]{
+  width: 100vw;
+  height: 100vh;
+}

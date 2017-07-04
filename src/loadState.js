@@ -5,6 +5,7 @@ function getUrl (s) {
 
 // Mira: https://weblogs.asp.net/dwahlin/dynamically-loading-controllers-and-views-with-angularjs-and-requirejs
 // https://michalzalecki.com/lazy-load-angularjs-with-webpack/
+
 export default function state (nameState) {
   let parent
   const name = nameState.replace(/(.*)(\.)(.*)$/, '$3')
@@ -20,11 +21,11 @@ export default function state (nameState) {
     name: nameState,
     // parent,
     templateUrl,
-    controllerProvider (sieState) {
+    controllerProvider: ['sieState', function (sieState) {
       return sieState
-    },
+    }],
     resolve: {
-      sieState ($templateCache) {
+      sieState: ['$templateCache', function ($templateCache) {
         return new Promise(resolve => {
           import(`./states${url}/index.js`).then(res => {
             const {template, ctrl} = res.default
@@ -32,12 +33,7 @@ export default function state (nameState) {
             resolve(ctrl)
           })
         })
-      },
-      $parent () {
-        console.log('this', this)
-        return this
-        // return $scope.$parent.$sie
-      }
+      }]
     },
     controllerAs: '$sie'
     /* templateProvider(){

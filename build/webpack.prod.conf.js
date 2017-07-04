@@ -1,6 +1,8 @@
 var fs = require('fs')
+var glob = require('glob')
 var path = require('path')
 var utils = require('./utils')
+var cssUtils = require('./css-utils')
 var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
@@ -9,6 +11,7 @@ var CopyWebpackPlugin = require('copy-webpack-plugin')
 var HtmlWebpackPlugin = require('html-webpack-plugin')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
+var PurifyCSSPlugin = require('purifycss-webpack')
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
 var env = process.env.NODE_ENV === 'testing'
@@ -27,6 +30,11 @@ var webpackConfig = merge(baseWebpackConfig, {
         })
       }
     ]
+    /*rules: cssUtils.styleRules({
+      sourceMap: config.build.productionSourceMap,
+      extract: true,
+      postcss: true
+    })*/
   },
   devtool: config.build.productionSourceMap ? '#source-map' : false,
   output: {
@@ -46,10 +54,7 @@ var webpackConfig = merge(baseWebpackConfig, {
         warnings: false
       },
       sourceMap: true,
-      /* //Esto es para tinymce
-      output: {
-        "ascii_only": true
-      }*/
+      //output: {"ascii_only": true}//Esto es para tinymce
     }),
     // extract css into its own file
     new ExtractTextPlugin({
@@ -62,6 +67,10 @@ var webpackConfig = merge(baseWebpackConfig, {
         safe: true
       }
     }),
+    /*new PurifyCSSPlugin({
+      // Give paths to parse for rules. These should be absolute!
+      paths: glob.sync(path.join(__dirname, '../dist/css/*.(css|js)'))
+    }),*/
     // generate dist index.html with correct asset hash for caching.
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
