@@ -21,7 +21,6 @@ export default function config (
     $compileProvider.cssClassDirectivesEnabled(false)
   }
   statesJSON.json.forEach(state => {
-    console.log(loadState(state))
     $stateProvider.state(loadState(state))
   })
   $translateProvider.useSanitizeValueStrategy('escape')

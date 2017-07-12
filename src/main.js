@@ -13,9 +13,7 @@ let dependencies = ['ngMaterial', 'ui.router']
 // dependencies.push('ui.tinymce')
 
 import 'moment'
-import 'immutable'
-import 'angular-immutable'
-dependencies.push('immutable')
+import 'sweetalert2'
 
 import 'angular-translate'
 dependencies.push('pascalprecht.translate')
