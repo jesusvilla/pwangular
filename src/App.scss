@@ -25,10 +25,62 @@ $swal2-validationerror-background: #ea7d7d !default;
 $swal2-validationerror-color:      $swal2-white !default;
 @import '~sweetalert2/src/sweetalert2.scss';
 //https://github.com/johannesjo/angular-material-sass-files/blob/master/themes/_button-theme.scss
-//@import "./themes/variables.scss";
-//@import "./themes/index.scss";
+@import "./themes/constantes.scss";
+@import "./themes/index.scss";
 
-sie-app > div > div[ui-view]{
-  width: 100vw;
-  height: 100vh;
+
+/********************************* FUENTE *************************************/
+@font-face {
+    font-family: 'SieIcons';
+    src:  url('/static/fonts/SieIcons/SieIcons.eot');
+    src:  url('/static/fonts/SieIcons/SieIcons.eot#iefix') format('embedded-opentype'),
+        url('/static/fonts/SieIcons/SieIcons.ttf') format('truetype'),
+        url('/static/fonts/SieIcons/SieIcons.woff') format('woff'),
+        url('/static/fonts/SieIcons/SieIcons.svg#SieIcons') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
+.sieicons{
+  font-family: 'SieIcons' !important;
+  speak: none;
+  font-weight: normal;
+  font-style: normal;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  vertical-align: middle;
+  letter-spacing: 0;
+  -webkit-font-feature-settings: "liga";
+  -moz-font-feature-settings: "liga=1";
+  -moz-font-feature-settings: "liga";
+  -ms-font-feature-settings: "liga" 1;
+  font-feature-settings: "liga";
+  -webkit-font-variant-ligatures: discretionary-ligatures;
+  font-variant-ligatures: discretionary-ligatures;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/********************************** FUENTE ************************************/
+
+/******************************** PRINCIPAL ***********************************/
+sie-app > div > div[ui-view]{
+  &, & > div{
+    width: 100vw;
+    height: 100vh;
+  }
+}
+
+:focus {
+    outline: none;
+}
+
+md-sidenav.md-locked-open.sidenav-mini{
+  width: 60px;
+}
+
+/******************************* PRINCIPAL ************************************/

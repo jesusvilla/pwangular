@@ -7,14 +7,9 @@ function getUrl (s) {
 // https://michalzalecki.com/lazy-load-angularjs-with-webpack/
 
 export default function state (nameState) {
-  let parent
   const name = nameState.replace(/(.*)(\.)(.*)$/, '$3')
-  if (nameState.indexOf('.') + 1) {
-    parent = nameState.replace(/(.*)(\.)(.*)$/, '$1')
-  }
   const url = `/${getUrl(nameState)}`
   const templateUrl = `${nameState}.html`
-  console.log(name, parent, url)
 
   return {
     url: `/${name}`,
