@@ -11,7 +11,8 @@
     "unit": "cross-env BABEL_ENV=test karma start test/unit/karma.conf.js --single-run",
     "test": "npm run unit",
     "lint": "eslint --ext .js,.vue src test/unit/specs",
-    "theme": "node build/theme.js"
+    "theme": "node build/theme.js",
+    "production": "node prod-server.js"
   },
   "dependencies": {
     "angular": "^1.6.4",

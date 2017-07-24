@@ -30,8 +30,7 @@ sieweb.component('sieApp', {
   template: App,
   controllerAs: '$sie',
   controller () {
-    const $sie = this
-    console.log('Inicio app', $sie)
+    // const $sie = this
     // $sie.tinymceOptions = configEditor
   }
 })

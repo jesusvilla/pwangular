@@ -1,3 +1,7 @@
+/***************** VARIABLES angular-material *********************************/
+//$whiteframe-shadow-1dp --- 24dp
+$md-shadow-1dp: 0 1px 2px rgba(0,0,0,.3) !default;
+
 @import '~angular-material/angular-material.scss';
 
 $swal2-white:       #fff !default;
@@ -25,8 +29,8 @@ $swal2-validationerror-background: #ea7d7d !default;
 $swal2-validationerror-color:      $swal2-white !default;
 @import '~sweetalert2/src/sweetalert2.scss';
 //https://github.com/johannesjo/angular-material-sass-files/blob/master/themes/_button-theme.scss
-@import "./themes/constantes.scss";
-@import "./themes/index.scss";
+//@import "./themes/constantes.scss";
+//@import "./themes/index.scss";
 
 
 /********************************* FUENTE *************************************/
@@ -81,6 +85,43 @@ sie-app > div > div[ui-view]{
 
 md-sidenav.md-locked-open.sidenav-mini{
   width: 60px;
+}
+
+.md-toolbar{
+  height: 60px;
+  background: #ffffff;
+  @extend .layout-row;
+
+  .md-button-toolbar{
+    height: 100%;
+    margin: 0;
+    width: 80px;
+    min-width: 80px;
+    border-radius: 0;
+    //transition: none;//all 0.3s ease
+
+    &:hover{
+      box-shadow: $md-shadow-1dp;
+      background-color: rgba(0,0,0,0.05);
+    }
+  }
+}
+
+.md-card{
+  margin: 8px;
+    border: 1px solid rgba(0,0,0,.15);
+    border-right: 1px solid rgba(0,0,0,.2);
+    border-bottom: 2px solid rgba(0,0,0,.2);
+    border-radius: 4px;
+    background-color: #fff;
+    position: relative;
+}
+
+.shadow-1dp{
+  box-shadow: $md-shadow-1dp;
+}
+.shadow-card{
+  @extend .shadow-1dp;
 }
 
 /******************************* PRINCIPAL ************************************/

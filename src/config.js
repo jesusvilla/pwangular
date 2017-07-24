@@ -13,7 +13,7 @@ export default function config (
 ) {
   $locationProvider.html5Mode(false).hashPrefix('')
   $mdIconProvider.defaultFontSet('sieicons')
-  $mdThemingProvider.disableTheming()
+  // $mdThemingProvider.disableTheming()
 
   $mdThemingProvider.definePalette('bluedark', {
     '50': 'e7eaef',
@@ -62,9 +62,9 @@ export default function config (
     '800': '178b7e',
     '900': '0d7b6c',
     'A100': 'adfff3',
-    'A200': '7affec',
-    'A400': '47ffe4',
-    'A700': '2dffe0',
+    'A200': '26a69a',
+    'A400': '229e92',
+    'A700': '178b7e',
     'contrastDefaultColor': 'light',
     'contrastDarkColors': [
       '50',
@@ -72,25 +72,25 @@ export default function config (
       '200',
       '300',
       '400',
-      'A100',
-      'A200',
-      'A400',
-      'A700'
+      'A100'
     ],
     'contrastLightColors': [
       '500',
       '600',
       '700',
       '800',
-      '900'
+      '900',
+      'A200',
+      'A400',
+      'A700'
     ]
   })
 
   $mdThemingProvider.theme('default')
     .primaryPalette('bluedark')
-    .accentPalette('tealjs')
+    .accentPalette('tealjs')// 26a69a
 
-  const arrAnimaciones = ['angular-animate', 'md-sidenav-backdrop', 'md-sidenav-']
+  const arrAnimaciones = ['angular-animate', 'md-sidenav-backdrop', 'md-sidenav-', 'md-fab-toolbar', 'md-animations']
   $animateProvider.classNameFilter(new RegExp(arrAnimaciones.map(v => `(${v})`).join('|')))
   if (process.env['NODE_ENV'] === 'production') {
     // Ver más en: https://docs.angularjs.org/guide/production

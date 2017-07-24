@@ -1,7 +1,7 @@
 var path = require('path')
 var utils = require('./utils')
 var config = require('../config')
-var states = require('./states.js')
+//var states = require('./states.js')
 var ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 function resolve (dir) {
