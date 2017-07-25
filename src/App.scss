@@ -1,8 +1,21 @@
 /***************** VARIABLES angular-material *********************************/
 //$whiteframe-shadow-1dp --- 24dp
 $md-shadow-1dp: 0 1px 2px rgba(0,0,0,.3) !default;
+$md-shadow-2dp: 0 1px 5px rgba(0,0,0,.2), 0 2px 2px rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+$md-shadow-3dp: 10px 10px 60px -25px;
 
 @import '~angular-material/angular-material.scss';
+
+.shadow-1dp{
+  box-shadow: $md-shadow-1dp;
+}
+.shadow-card{
+  @extend .shadow-1dp;
+}
+.c-text{
+  color: rgba(0,0,0,.87);
+}
+/*******************************************************************/
 
 $swal2-white:       #fff !default;
 $swal2-black:       #000 !default;
@@ -28,6 +41,36 @@ $swal2-input-box-shadow-focus:     #c4e6f5 !default;
 $swal2-validationerror-background: #ea7d7d !default;
 $swal2-validationerror-color:      $swal2-white !default;
 @import '~sweetalert2/src/sweetalert2.scss';
+$swal2-width: 400px;
+
+//Basado en: http://fancyapps.com/fancybox/3/
+.swal2-container.swal2-shown{
+  //background-color: rgba(255, 255, 255, 0.8);
+}
+
+.swal2-modal{
+  width: #{$swal2-width} !important;
+  padding: 16px !important;
+  padding-bottom: 0 !important;
+  box-shadow: $md-shadow-3dp;
+  border-radius: 2px;
+
+  button.swal2-confirm.swal2-styled{
+    @extend .md-button;
+    @extend .shadow-1dp;
+    color: #ffffff;
+  }
+
+  h2.swal2-title{
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 32px;
+    @extend .c-text;
+  }
+  div.swal2-content{
+    @extend .c-text;
+  }
+}
 //https://github.com/johannesjo/angular-material-sass-files/blob/master/themes/_button-theme.scss
 //@import "./themes/constantes.scss";
 //@import "./themes/index.scss";
@@ -83,11 +126,26 @@ sie-app > div > div[ui-view]{
     outline: none;
 }
 
-md-sidenav.md-locked-open.sidenav-mini{
-  width: 60px;
+//Base: http://blog.creative-tim.com/web-design/free-dashboard-templates/
+//Basado en: https://www.creative-tim.com/product/light-bootstrap-dashboard
+md-sidenav{
+  background-image: url('http://pixelperfect.com.ar/wp-content/uploads/2017/03/Material-design.jpg');
+
+  > div{
+    height: 100vh;
+    overflow: auto;
+    overflow-x: hidden;
+    background-color: rgba(0,0,0,0.8);
+    color: #ffffff;
+  }
+  &.md-locked-open.sidenav-mini{
+    width: 60px;
+  }
 }
 
 .md-toolbar{
+  position: relative;
+  z-index: 1;
   height: 60px;
   background: #ffffff;
   @extend .layout-row;
@@ -107,21 +165,23 @@ md-sidenav.md-locked-open.sidenav-mini{
   }
 }
 
-.md-card{
-  margin: 8px;
-    border: 1px solid rgba(0,0,0,.15);
-    border-right: 1px solid rgba(0,0,0,.2);
-    border-bottom: 2px solid rgba(0,0,0,.2);
-    border-radius: 4px;
-    background-color: #fff;
-    position: relative;
+.md-principal{
+  position: relative;
+  z-index: 0;
+  height: calc(100vh - 60px);
+  background: #f1f1f1;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
-.shadow-1dp{
-  box-shadow: $md-shadow-1dp;
-}
-.shadow-card{
-  @extend .shadow-1dp;
+.md-card{
+  margin: 8px;
+  border: 1px solid rgba(0,0,0,.15);
+  border-right: 1px solid rgba(0,0,0,.2);
+  border-bottom: 2px solid rgba(0,0,0,.2);
+  border-radius: 4px;
+  background-color: #fff;
+  position: relative;
 }
 
 /******************************* PRINCIPAL ************************************/

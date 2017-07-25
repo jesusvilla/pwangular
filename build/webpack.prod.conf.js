@@ -147,6 +147,21 @@ if (config.build.productionGzip) {
       minRatio: 0.8
     })
   )
+
+  var BrotliPlugin = require('brotli-webpack-plugin')
+  webpackConfig.plugins.push(
+    new BrotliPlugin({
+			asset: '[path].br[query]',//test: /\.(js|css|html|svg)$/
+      test: new RegExp(
+        '\\.(' +
+        config.build.productionGzipExtensions.join('|') +
+        ')$'
+      ),
+			threshold: 0,//Files 10KB min (10240)
+			minRatio: 0.8
+		})
+  )
+
 }
 
 if (config.build.bundleAnalyzerReport) {

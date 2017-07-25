@@ -1,10 +1,10 @@
 import 'moment'
-// import swal from 'sweetalert2'
+import swal from 'sweetalert2'
 // import generarInputF from './generarInput'
 
 /* @ngInject */
 export default function ctrl ($mdSidenav, $timeout) {
-  var $sie = this
+  const $sie = this
 
   $sie.toggleMenu = () => {
     console.log('Toggle menu')
@@ -31,6 +31,7 @@ export default function ctrl ($mdSidenav, $timeout) {
   }
 
   $sie.$onInit = () => {
+    swal('Titulo', 'Descripcion', 'warning')
     $sie.sidenavMini = false
     $sie.iconMenu = 'arrow_back'
     $timeout(() => {
