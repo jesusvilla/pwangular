@@ -13,6 +13,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin')
 var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var PurifyCSSPlugin = require('purifycss-webpack')
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+var ImageminPlugin = require('imagemin-webpack-plugin').default
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -127,7 +128,8 @@ var webpackConfig = merge(baseWebpackConfig, {
       staticFileGlobs: ['dist/**/*.{js,html,css}'],
       minify: true,
       stripPrefix: 'dist/'
-    })
+    }),
+    new ImageminPlugin({ test: /\.(jpe?g|png|gif)$/i })
   ]
 })
 
