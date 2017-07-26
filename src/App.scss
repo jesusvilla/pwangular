@@ -129,8 +129,10 @@ sie-app > div > div[ui-view]{
 //Base: http://blog.creative-tim.com/web-design/free-dashboard-templates/
 //Basado en: https://www.creative-tim.com/product/light-bootstrap-dashboard
 md-sidenav{
-  $sidenav-width: 400px;
+  $sidenav-width: 300px;
   width: $sidenav-width;
+  max-width: $sidenav-width;
+  min-width: $sidenav-width; 
   overflow: auto;
   overflow-x: hidden;
   //background-image: url('http://pixelperfect.com.ar/wp-content/uploads/2017/03/Material-design.jpg');

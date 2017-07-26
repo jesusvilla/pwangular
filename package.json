@@ -23,13 +23,15 @@
     "angular-translate": "^2.15.2",
     "angular-ui-router": "^1.0.3",
     "angular-ui-tinymce": "^0.0.18",
+    "angular-velocity": "^0.3.1",
     "immutable": "^3.8.1",
     "lodash": "^4.17.4",
     "moment": "^2.18.1",
     "pdfjs-dist": "^1.8.476",
     "sweetalert2": "^6.6.5",
     "textangular": "^1.5.16",
-    "tinymce": "^4.6.4"
+    "tinymce": "^4.6.4",
+    "velocity-animate": "^1.5.0"
   },
   "devDependencies": {
     "angular-material-sass-files": "^1.0.0",

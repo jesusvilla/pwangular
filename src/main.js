@@ -11,6 +11,10 @@ let dependencies = ['ngMaterial', 'ui.router']
 // import configEditor from './components/tinymce'
 // import 'angular-ui-tinymce'
 // dependencies.push('ui.tinymce')
+import 'velocity-animate'
+import 'velocity-animate/velocity.ui'
+import 'angular-velocity'
+dependencies.push('angular-velocity')
 
 import 'moment'
 import 'sweetalert2'
