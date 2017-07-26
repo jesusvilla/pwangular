@@ -115,6 +115,12 @@ $swal2-width: 400px;
 /********************************** FUENTE ************************************/
 
 /******************************** PRINCIPAL ***********************************/
+body{
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
 sie-app > div > div[ui-view]{
   &, & > div{
     width: 100vw;
@@ -132,7 +138,7 @@ md-sidenav{
   $sidenav-width: 300px;
   width: $sidenav-width;
   max-width: $sidenav-width;
-  min-width: $sidenav-width; 
+  min-width: $sidenav-width;
   overflow: auto;
   overflow-x: hidden;
   //background-image: url('http://pixelperfect.com.ar/wp-content/uploads/2017/03/Material-design.jpg');
@@ -157,6 +163,8 @@ md-sidenav{
   }
   &.md-locked-open.sidenav-mini{
     width: 60px;
+    max-width: 60px;
+    min-width: 60px;
   }
 }
 
