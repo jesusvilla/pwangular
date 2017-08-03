@@ -7,11 +7,12 @@ export default function config (
   $locationProvider,
   $compileProvider,
   $mdThemingProvider,
+  $mdIconProvider,
   $animateProvider,
-  $translateProvider,
-  $mdIconProvider
+  $translateProvider
 ) {
   $locationProvider.html5Mode(false).hashPrefix('')
+
   $mdIconProvider.defaultFontSet('sieicons')
   // $mdThemingProvider.disableTheming()
 

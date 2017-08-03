@@ -3,7 +3,9 @@ import swal from 'sweetalert2'
 // import generarInputF from './generarInput'
 
 /* @ngInject */
-export default function ctrl ($mdSidenav, $timeout) {
+export default function ctrl (
+  $mdSidenav,
+  $timeout) {
   const $sie = this
 
   $sie.toggleMenu = () => {

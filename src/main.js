@@ -1,12 +1,15 @@
+const dependencies = []
 import angular from 'angular'
-import 'angular-aria'
 import 'angular-animate'
+
+import 'angular-aria'
 import 'angular-material'
+dependencies.push('ngMaterial')
 
 import App from './App.html'
 import './App.scss'
 import 'angular-ui-router'
-let dependencies = ['ngMaterial', 'ui.router']
+dependencies.push('ui.router')
 
 // import configEditor from './components/tinymce'
 // import 'angular-ui-tinymce'
@@ -18,6 +21,7 @@ dependencies.push('angular-velocity')
 
 import 'moment'
 import 'sweetalert2'
+import 'chart.js'
 
 import 'angular-translate'
 dependencies.push('pascalprecht.translate')
@@ -38,5 +42,8 @@ sieweb.component('sieApp', {
     // $sie.tinymceOptions = configEditor
   }
 })
+
+/* import $mdSidenav from './services/mdSideNav'
+sieweb.factory('$mdSidenav', $mdSidenav) */
 angular.bootstrap($app, ['sieweb'], {strictDi: true})
 export default sieweb
