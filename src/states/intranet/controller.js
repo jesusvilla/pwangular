@@ -3,14 +3,18 @@ import swal from 'sweetalert2'
 // import generarInputF from './generarInput'
 
 /* @ngInject */
-export default function ctrl (
-  $mdSidenav,
-  $timeout) {
-  const $sie = this
+export default class ctrl {
+  constructor (
+    $mdSidenav,
+    $timeout) {
+    this.$mdSidenav = $mdSidenav
+    this.$timeout = $timeout
+  }
 
-  $sie.toggleMenu = () => {
+  toggleMenu () {
     console.log('Toggle menu')
-    const $menu = $mdSidenav('menu')
+    const $sie = this
+    const $menu = this.$mdSidenav('menu')
     const isOpenMenu = $menu.isOpen()
     const isLOpenMenu = $menu.isLockedOpen()
 
@@ -32,11 +36,12 @@ export default function ctrl (
     }
   }
 
-  $sie.$onInit = () => {
+  $onInit () {
+    const $sie = this
     swal('Titulo', 'Descripcion', 'warning')
     $sie.sidenavMini = false
     $sie.iconMenu = 'arrow_back'
-    $timeout(() => {
+    $sie.$timeout(() => {
       $sie.toggleMenu()
     })
   }
