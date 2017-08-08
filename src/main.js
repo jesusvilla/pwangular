@@ -11,6 +11,10 @@ import './App.scss'
 import 'angular-ui-router'
 dependencies.push('ui.router')
 
+import 'immutable'
+import 'angular-immutable'
+dependencies.push('immutable')
+
 // import configEditor from './components/tinymce'
 // import 'angular-ui-tinymce'
 // dependencies.push('ui.tinymce')
@@ -20,8 +24,15 @@ import 'angular-velocity'
 dependencies.push('angular-velocity')
 
 import 'moment'
-import 'sweetalert2'
 import 'chart.js'
+import swal from 'sweetalert2'
+swal.setDefaults({
+  buttonsStyling: false,
+  confirmButtonClass: 'md-button md-accent md-raised',
+  cancelButtonClass: 'md-button md-primary',
+  confirmButtonText: 'Confirmar',
+  cancelButtonText: 'Cancelar'
+})
 
 import 'angular-translate'
 dependencies.push('pascalprecht.translate')

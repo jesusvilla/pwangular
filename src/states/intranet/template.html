@@ -4,12 +4,19 @@
         md-component-id="menu"
         md-is-locked-open="$mdMedia('gt-sm')"
         ng-class="$sie.sidenavMini">
-        <div>
+        <div class="bg-primary-700">
           <div class="md-sidenav-head">
             head
           </div>
           <div class="md-sidenav-body">
-            Lista menu
+            <ul>
+              <li immutable="$sie.menu" ng-repeat="item in $sie.menu track by item.uisref" ui-sref-active="active bg-accent">
+                <a ui-sref="{{item.uisref}}">
+                  <md-icon ng-bind="item.icon"></md-icon>
+                  <div class="text-menu" ng-bind="item.desc"></div>
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
   </md-sidenav>
@@ -17,6 +24,9 @@
     <div class="md-toolbar shadow-card">
       <md-button ng-click="$sie.toggleMenu()" class="md-button-toolbar">
         <md-icon>{{$sie.iconMenu}}</md-icon>
+      </md-button>
+      <md-button ui-sref="intranet.mensajeria" class="md-button-toolbar">
+        <md-icon>email</md-icon>
       </md-button>
     </div>
     <div class="md-principal angular-animate velocity-enter-transition-slideRightIn velocity-leave-transition-slideDownOut" ui-view></div>

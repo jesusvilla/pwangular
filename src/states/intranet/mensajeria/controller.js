@@ -1,8 +1,7 @@
 /* function randomIntFromInterval (min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 } */
-/* @ngInject */
-export default function app ($timeout) {
+/* export default function app ($timeout) {
   // $scope.$parent.$sie
   const $sie = this
   const size = 50000// 500000 muere
@@ -21,5 +20,26 @@ export default function app ($timeout) {
   $sie.$onInit = () => {
     $sie.data = []
     console.log('inicio')
+  }
+} */
+import {List} from 'immutable'
+
+/* @ngInject */
+export default class app {
+  constructor ($timeout) {
+    this.$timeout = $timeout
+    this.size = 50000// 500000
+    this.data = List([])
+  }
+  generarArreglo () {
+    console.time('arreglo')
+    let arreglo = []
+    for (let i = 0; i < this.size; i++) {
+      arreglo.push({id: i, value: `Item${i}`})
+    }
+    this.data = List(arreglo)
+    this.$timeout(() => {
+      console.timeEnd('arreglo')
+    })
   }
 }

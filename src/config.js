@@ -1,95 +1,24 @@
 import statesJSON from './states.json'
 import loadState from './loadState.js'
+import generateTheme from './themes/generateTheme.js'
 /* @ngInject */
 export default function config (
   $stateProvider,
+  $urlRouterProvider,
   $urlServiceProvider,
   $locationProvider,
   $compileProvider,
   $mdThemingProvider,
   $mdIconProvider,
   $animateProvider,
-  $translateProvider
+  $translateProvider,
+  $httpProvider
 ) {
   $locationProvider.html5Mode(false).hashPrefix('')
 
   $mdIconProvider.defaultFontSet('sieicons')
   // $mdThemingProvider.disableTheming()
-
-  $mdThemingProvider.definePalette('bluedark', {
-    '50': 'e7eaef',
-    '100': 'c4ccd7',
-    '200': '9caabc',
-    '300': '7487a1',
-    '400': '576e8d',
-    '500': '395479',
-    '600': '334d71',
-    '700': '2c4366',
-    '800': '243a5c',
-    '900': '172949',
-    'A100': '87afff',
-    'A200': '548dff',
-    'A400': '216bff',
-    'A700': '085aff',
-    'contrastDefaultColor': 'light',
-    'contrastDarkColors': [
-      '50',
-      '100',
-      '200',
-      '300',
-      'A100',
-      'A200'
-    ],
-    'contrastLightColors': [
-      '400',
-      '500',
-      '600',
-      '700',
-      '800',
-      '900',
-      'A400',
-      'A700'
-    ]
-  })
-  $mdThemingProvider.definePalette('tealjs', {
-    '50': 'e5f4f3',
-    '100': 'bee4e1',
-    '200': '93d3cd',
-    '300': '67c1b8',
-    '400': '47b3a9',
-    '500': '26a69a',
-    '600': '229e92',
-    '700': '1c9588',
-    '800': '178b7e',
-    '900': '0d7b6c',
-    'A100': 'adfff3',
-    'A200': '26a69a',
-    'A400': '229e92',
-    'A700': '178b7e',
-    'contrastDefaultColor': 'light',
-    'contrastDarkColors': [
-      '50',
-      '100',
-      '200',
-      '300',
-      '400',
-      'A100'
-    ],
-    'contrastLightColors': [
-      '500',
-      '600',
-      '700',
-      '800',
-      '900',
-      'A200',
-      'A400',
-      'A700'
-    ]
-  })
-
-  $mdThemingProvider.theme('default')
-    .primaryPalette('bluedark')
-    .accentPalette('tealjs')// 26a69a
+  generateTheme($mdThemingProvider)
 
   const arrAnimaciones = ['angular-animate', 'md-sidenav-backdrop', 'md-sidenav-', 'md-fab-toolbar', 'md-animations']
   $animateProvider.classNameFilter(new RegExp(arrAnimaciones.map(v => `(${v})`).join('|')))
@@ -100,8 +29,26 @@ export default function config (
     $compileProvider.commentDirectivesEnabled(false)
     $compileProvider.cssClassDirectivesEnabled(false)
   }
+
   statesJSON.json.forEach(state => {
     $stateProvider.state(loadState(state))
   })
+  $urlRouterProvider.otherwise('intranet')
   $translateProvider.useSanitizeValueStrategy('escape')
+
+  $httpProvider.defaults.headers.common['sie-token'] = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJTSVNDT0QiOiIyMSIsIlVTVUNPRCI6IlNJRSIsIlVTVU5PTSI6IkFkbWluaXN0cmFkb3IgU2llV2ViIiwiVElQQ09EIjoiMDAxIiwiUFJPRkNPRCI6bnVsbCwiVElQTk9NIjoiQWRtaW5pc3RyYWRvciBkZWwgU2lzdGVtYSIsIkFDQ0VTTyI6bnVsbCwiRkFNQ09EIjpudWxsLCJBTFVDT0QiOm51bGwsIkFDQ0VTT19TQUxPTiI6IlQiLCJBQ0NFU09fQklCTElPIjpudWxsLCJQRVJTT05BTElaQURPIjpudWxsLCJET0NFU1QiOm51bGwsIkFOT0VTVCI6IlAiLCJBTk8iOjIwMTcsIkFOT0RFUyI6IiIsIkNPTEVHSU8iOiJjb2xlZ2lvaW5nZW5pZXJpYSIsIkNPTENPRCI6IjAxOTMiLCJJUCI6Ijo6ZmZmZjoxMjcuMC4wLjEiLCJDT09LSUUiOiJrbzB0bjkxbnFjYm1qZjQ2OWJlY3U2aGVhNSIsImlhdCI6MTUwMjIxNzkzMywiZXhwIjoxNTA0ODA5OTMzfQ.tgBRPfLE_rPmzIGyDWTmccJ-mCcAVNN13YbbEuNl3E0'
+
+  $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
+  $httpProvider.defaults.headers.common['Access-Control-Allow-Origin'] = '*'
+  $httpProvider.defaults.headers.common['Access-Control-Allow-Headers'] = 'X-Requested-With,content-type'
+  $httpProvider.defaults.headers.common['Access-Control-Allow-Methods'] = 'GET, POST, OPTIONS, PUT, PATCH, DELETE'
+  $httpProvider.defaults.headers.common['Access-Control-Allow-Credentials'] = true
+  // 'Access-Control-Allow-Credentials': true
+  $httpProvider.defaults.headers.common['Accept'] = 'application/json'
+  $httpProvider.defaults.headers.common['Content-Type'] = 'application/json'
+
+  $httpProvider.defaults.useXDomain = true
+  $httpProvider.defaults.withCredentials = true
+  delete $httpProvider.defaults.headers.common['X-Requested-With']
+  console.log($httpProvider.defaults.headers)
 }
