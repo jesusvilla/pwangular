@@ -1,6 +1,7 @@
 import statesJSON from './states.json'
 import loadState from './loadState.js'
 import generateTheme from './themes/generateTheme.js'
+import angular from 'angular'
 /* @ngInject */
 export default function config (
   $stateProvider,
@@ -12,7 +13,8 @@ export default function config (
   $mdIconProvider,
   $animateProvider,
   $translateProvider,
-  $httpProvider
+  $httpProvider,
+  $datepickerProvider
 ) {
   $locationProvider.html5Mode(false).hashPrefix('')
 
@@ -50,5 +52,11 @@ export default function config (
   $httpProvider.defaults.useXDomain = true
   $httpProvider.defaults.withCredentials = true
   delete $httpProvider.defaults.headers.common['X-Requested-With']
-  console.log($httpProvider.defaults.headers)
+
+  angular.extend($datepickerProvider.defaults, {
+    dateFormat: 'dd/MM/yyyy',
+    iconLeft: 'sieicons chevron_left',
+    iconRight: 'sieicons chevron_right'
+    // startWeek: 1
+  })
 }

@@ -1,0 +1,30 @@
+Prueba
+<form name="formulario">
+  <input
+  type="text"
+  class="form-control"
+  ng-model="fechaMin"
+  data-min-date="02/10/86"
+  name="date2"
+  bs-datepicker>
+  <p>{{selectedDateAsNumber}}</p>
+  <p>{{formulario.date2}}</p>
+
+
+  <br>
+
+  <div class="layout-row layout-wrap">
+    <div class="flex-25">
+      <md-input-container>
+        <label>Titulo</label>
+        <input ng-model="fecha" min-date="{{fechaMin}}" bs-datepicker>
+      </md-input-container>
+    </div>
+    <div class="flex-25">
+      <div class="md-input-container">
+        <input ng-model="fecha" min-date="{{fechaMin}}" bs-datepicker>
+        <label>Fecha</label>
+      </div>
+    </div>
+  </div>
+</form>

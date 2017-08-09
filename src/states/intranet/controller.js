@@ -1,4 +1,4 @@
-import swal from 'sweetalert2'
+// import swal from 'sweetalert2'
 import {List} from 'immutable'
 // import generarInputF from './generarInput'
 
@@ -17,7 +17,7 @@ export default class ctrl {
 
   $onInit () {
     const $sie = this
-    swal('Titulo', 'Descripcion', 'warning')
+    // swal('Titulo', 'Descripcion', 'warning')
     $sie.sidenavMini = false
     $sie.iconMenu = 'arrow_back'
     $sie.$timeout(() => {

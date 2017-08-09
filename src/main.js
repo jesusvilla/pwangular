@@ -34,6 +34,20 @@ swal.setDefaults({
   cancelButtonText: 'Cancelar'
 })
 
+import 'angular-strap/dist/modules/compiler.js'
+import 'angular-strap/dist/modules/dimensions.js'
+import 'angular-strap/dist/modules/tooltip.js'
+import 'angular-strap/dist/modules/tooltip.tpl.js'
+import 'angular-strap/dist/modules/date-formatter.js'
+import 'angular-strap/dist/modules/date-parser.js'
+import 'angular-strap/dist/modules/timepicker.js'
+import 'angular-strap/dist/modules/timepicker.tpl.js'
+import 'angular-strap/dist/modules/datepicker.js'
+import 'angular-strap/dist/modules/datepicker.tpl.js'
+// dependencies.push('mgcrea.ngStrap.tooltip')
+dependencies.push('mgcrea.ngStrap.timepicker')
+dependencies.push('mgcrea.ngStrap.datepicker')
+
 import 'angular-translate'
 dependencies.push('pascalprecht.translate')
 

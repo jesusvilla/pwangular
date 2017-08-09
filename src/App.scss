@@ -15,6 +15,17 @@ $md-shadow-3dp: 10px 10px 60px -25px;
 .c-text{
   color: rgba(0,0,0,.87);
 }
+
+@each $text in ("left", "center", "right"){
+  .text-#{$text}{
+    text-align: #{$text};
+  }
+}
+
+.text-muted{
+  color: #808080;
+}
+
 /*******************************************************************/
 
 $swal2-white:       #fff !default;
@@ -111,6 +122,12 @@ $swal2-width: 400px;
   font-variant-ligatures: discretionary-ligatures;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  @each $font in ("chevron_left", "chevron_right"){
+    &.#{$font}:after{
+      content: "#{$font}";
+    }
+  }
 }
 /********************************** FUENTE ************************************/
 
@@ -258,4 +275,157 @@ md-sidenav{
   position: relative;
 }
 
+$transicion: all 0.2s ease-out;
+@mixin transition($trans) {
+  -webkit-transition: $trans;
+  -o-transition: $trans;
+  -moz-transition: $trans;
+  -ms-transition: $trans;
+  transition: $trans;
+}
+
+.md-input-container {
+  position: relative;
+  display: block;
+  padding: 11px 0;
+  box-sizing: border-box;
+  > input {
+    position: relative;
+    display: block;
+    width: 100%;
+    background: transparent;
+    z-index: 2;
+    outline: none;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+    padding: 2px;
+    height: 22px;
+    line-height: 22px;
+    font-size: 14px;
+
+    &.ng-not-empty,
+    &:focus{
+      $color-success: rgb(57,84,121);
+      border-bottom: 2px solid #{$color-success};
+
+      ~ label {
+        opacity: 1;
+        top: 0px;
+        font-size: 10px;
+        color: $color-success;
+      }
+    }
+
+    &.ng-invalid{
+      $color-error: #DD2C00;
+      border-bottom: 1px solid #{$color-error};
+      &:focus{
+        border-bottom: 2px solid #{$color-error};
+      }
+      ~ label{
+        color: $color-error;
+      }
+    }
+
+    &[required] + label:after{
+      content: '*';
+      display: inline-block;
+    }
+  }
+  > label {
+    z-index: 1;
+    display: block;
+    position: absolute;
+    top: 18px;
+    padding-left: 3px;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 14px;
+    line-height: 14px;
+    @include transition($transicion);
+  }
+}
+
 /******************************* PRINCIPAL ************************************/
+
+/**************** ANGULAR STRAP DATEPICKER **********************************/
+/*.base-picker {
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-right: 1px solid rgba(0, 0, 0, 0.2);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}*/
+
+.dropdown-menu {
+  //padding: 8px;
+  //background-color: #fff;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 4px 8px;
+  list-style: none;
+  font-size: 14px;
+  text-align: left;
+  background-color: #fff;
+  border-radius: 2px;
+  background-clip: padding-box;
+  @extend .shadow-card;
+
+  &.datepicker{
+    min-width: 250px;
+    max-width: 250px;
+  }
+}
+
+.pull-left{
+  float: left !important;
+}
+.pull-right{
+  float: right !important;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  padding: 6px;
+  border-radius: 2px;
+
+  &:hover{
+    background-color: #e0e0e0;
+  }
+  &.btn-block{
+    display: block;
+    width: 100%;
+  }
+  &.pull-right, &.pull-left{
+    border-radius: 50%;
+  }
+
+  &[disabled]{
+    cursor: not-allowed;
+  }
+}
+
+td > .btn {
+  min-width: 35px;
+  width: 35px;
+  height: 35px;
+
+  &:hover, &.btn-today {
+    background-color: #e0e0e0;
+  }
+
+  &.btn-primary {
+    background-color: #26A69A;
+    color: #ffffff;
+  }
+
+  .datepicker-mode-0 &{
+    border-radius: 50%;
+    max-width: 35px;
+  }
+}
+/*****************************************************************************/
