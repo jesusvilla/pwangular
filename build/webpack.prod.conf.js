@@ -2,7 +2,7 @@ var fs = require('fs')
 var glob = require('glob')
 var path = require('path')
 var utils = require('./utils')
-var cssUtils = require('./css-utils')
+//var cssUtils = require('./css-utils')
 var webpack = require('webpack')
 var config = require('../config')
 var merge = require('webpack-merge')
@@ -14,6 +14,7 @@ var OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 var PurifyCSSPlugin = require('purifycss-webpack')
 var SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 var ImageminPlugin = require('imagemin-webpack-plugin').default
+var autoprefixer = require('autoprefixer')
 
 var env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
@@ -26,8 +27,16 @@ var webpackConfig = merge(baseWebpackConfig, {
         test: /\.scss$/,
         use: ExtractTextPlugin.extract({
           fallback: 'style-loader',
-          //resolve-url-loader may be chained before sass-loader if necessary
-          use: ['css-loader', 'sass-loader']
+          use: [
+          {
+            loader: 'css-loader',
+            //options : { autoprefixer: false, sourceMap: true, importLoaders: 1 }
+          },
+          {
+            loader: 'postcss-loader',
+            options: {config: {path: 'postcss.config.js'}}
+            //options: {ident: 'postcss'}
+         }, 'sass-loader']
         })
       }
     ]
